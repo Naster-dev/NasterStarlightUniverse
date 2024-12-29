@@ -8,7 +8,8 @@
 <script>
 //스크립트 정의영역
 const ITEM_PATH="sld/";
-const ITEM_NAME="슬라이드"
+const ITEM_NAME_FIRST="screen ("
+const ITEM_NAME_FINAL=")"
 const ITEM_EXTEND=".png";
 
 let selGroup="";
@@ -52,7 +53,7 @@ function ClickNext()
 
 function LoadSlide()
 {
-	output = ITEM_PATH + selGroup + "/" + ITEM_NAME + selNum + ITEM_EXTEND;
+	output = ITEM_PATH + selGroup + "/" + ITEM_NAME_FIRST + selNum + ITEM_NAME_FINAL + ITEM_EXTEND;
 
 	document.getElementById("selPanel").src= output;
 }
