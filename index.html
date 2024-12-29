@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+<HEAD>
+<Title>nsuPage</Title>
+<meta charset="utf-16"></meta>
+</HEAD>
+<BODY>
+<script>
+//스크립트 정의영역
+const ITEM_PATH="sld/";
+const ITEM_NAME="슬라이드"
+const ITEM_EXTEND=".png";
+
+let selGroup="";
+let selNum=1;
+let selMAX=0;
+
+let latelySuccessPath;
+
+function SelectGroup(selected)
+{
+	selGroup = selected.children[1].textContent;
+	selNum = 1;
+	selMAX = Number(selected.children[2].textContent);
+
+	LoadSlide();
+}
+
+function ClickHome()
+{
+	selNum = 1;
+	LoadSlide();
+}
+
+function ClickBack()
+{
+	if(selNum > 1)
+	{
+		selNum -= 1;
+		LoadSlide();
+	}
+}
+
+function ClickNext()
+{
+	if(selNum < selMAX)
+	{
+		selNum += 1;
+		LoadSlide();
+	}
+}
+
+function LoadSlide()
+{
+	output = ITEM_PATH + selGroup + "/" + ITEM_NAME + selNum + ITEM_EXTEND;
+
+	document.getElementById("selPanel").src= output;
+}
+
+function OK()
+{
+	latelySuccessPath = document.getElementById("selPanel").src;
+}
+
+function NG()
+{
+	//이미지 없으면, 마지막 이미지로 유지시킬 것
+	document.getElementById("selPanel").src= latelySuccessPath;
+}
+
+</script>
+<h2>Portfolio</h2>
+<p>A. Production</p>
+<table border="1">
+	<thead>
+		<tr>
+			<th>INDEX</th>
+			<th width="80px">TITLE</th>
+			<th>MAX</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr onclick="SelectGroup(this)">
+			<th>1.</th>
+			<td>simPLC</td>
+			<td>9</td>
+		</tr>
+		<tr onclick="SelectGroup(this)">
+			<th>2.</th>
+			<td>Hangen</td>
+			<td>6</td>
+		</tr>
+	</tbody>
+</table>
+<p>B. R&D</p>
+<table border="1">
+	<thead>
+		<tr>
+			<th>INDEX</th>
+			<th width="100px">TITLE</th>
+			<th>MAX</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th>1.</th>
+			<td>Reserved</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<th>2.</th>
+			<td>Reserved</td>
+			<td>0</td>
+		</tr>
+	</tbody>
+</table>
+
+<div style="background:yellow;width:640px;height:480px">
+	<h4>Slide Panel</h4>
+	<input type="button" value="Home" onclick="ClickHome()">
+	<input type="button" value="Back" onclick="ClickBack()">
+	<input type="button" value="Next" onclick="ClickNext()">
+	<div style="background:blue;width:480px;height:270px;position:relative;top:10px;left:10px">
+		<img id="selPanel" src="sld/Empty.png" onload="OK()" onerror="NG()" style="width:100%;height:100%">
+	</div>
+</div>
+</BODY>
+</HTML>
