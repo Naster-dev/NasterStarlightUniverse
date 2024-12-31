@@ -70,30 +70,48 @@ function NG()
 }
 
 </script>
-<h2>Portfolio</h2>
-<p>A. Production</p>
+
+<h2>Portfolio</h2><br>
+<h4>A. Private Production</h4>
 <table border="1">
 	<thead>
 		<tr>
 			<th>INDEX</th>
-			<th width="80px">TITLE</th>
+			<th width="100px">TITLE</th>
 			<th>MAX</th>
 		</tr>
 	</thead>
 	<tbody>
-		<tr onclick="SelectGroup(this)">
+		<tr onclick="SelectGroup(this)" style="cursor:pointer">
 			<th>1.</th>
 			<td>simPLC</td>
 			<td>9</td>
 		</tr>
-		<tr onclick="SelectGroup(this)">
+		<tr onclick="SelectGroup(this)" style="cursor:pointer">
 			<th>2.</th>
 			<td>Hangen</td>
 			<td>6</td>
 		</tr>
 	</tbody>
 </table>
-<p>B. R&D</p>
+<h4>B. Test Program</h4>
+<table border="1">
+	<thead>
+		<tr>
+			<th>INDEX</th>
+			<th width="100px">TITLE</th>
+			<th>MAX</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr onclick="SelectGroup(this)" style="cursor:pointer">
+			<th>1.</th>
+			<td>Test_Program</td>
+			<td>4</td>
+		</tr>
+	</tbody>
+</table>
+<h4>C. Experience</h4>
 <table border="1">
 	<thead>
 		<tr>
@@ -105,18 +123,14 @@ function NG()
 	<tbody>
 		<tr>
 			<th>1.</th>
-			<td>Reserved</td>
-			<td>0</td>
-		</tr>
-		<tr>
-			<th>2.</th>
-			<td>Reserved</td>
+			<td>view</td>
 			<td>0</td>
 		</tr>
 	</tbody>
 </table>
 
-<div style="background:yellow;width:640px;height:480px">
+
+<div style="background:yellow;width:500px;height:480px;position:fixed;top:10px;right:10px">
 	<h4>Slide Panel</h4>
 	<input type="button" value="Home" onclick="ClickHome()">
 	<input type="button" value="Back" onclick="ClickBack()">
