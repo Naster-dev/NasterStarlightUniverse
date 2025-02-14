@@ -16,6 +16,7 @@ let selGroup="";
 let selNum=1;
 let selMAX=0;
 
+
 let latelySuccessPath;
 
 function SelectGroup(selected)
@@ -25,6 +26,18 @@ function SelectGroup(selected)
 	selMAX = Number(selected.children[2].textContent);
 
 	LoadSlide();
+}
+
+function preloading(title, count)
+{
+	let n = Number(count);
+	let Tmpimg = new Array(n);
+
+	for(i =0; i < n; i++)
+	{
+		Tmpimg[i] = new Image();
+		Tmpimg[i].src = ITEM_PATH + title + "/"+ ITEM_NAME_FIRST + (i+1) + ITEM_EXTEND;
+	}
 }
 
 function ClickHome()
@@ -69,6 +82,8 @@ function NG()
 	document.getElementById("selPanel").src= latelySuccessPath;
 }
 
+//Execute to Main Function
+start=preloading("Introduce", 11);
 </script>
 
 <h2>Naster Universe Group</h2><br>
