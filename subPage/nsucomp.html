@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+<HEAD>
+<Title>Naster Universe V0.1</Title>
+</HEAD>
+<BODY>
+<script>
+let count=0;
+
+window.addEventListener("keypress", (e) => {
+	const key = e.key;
+	if(key =='w')
+	{
+		player=document.getElementById("human");
+		nowTop=player.style.top.replace('px','');
+		futureTop=Number(nowTop) - 32;
+
+		player.style.top = futureTop+"px";
+	}
+	else if(key =='s')
+	{
+		player=document.getElementById("human");
+		nowTop=player.style.top.replace('px','');
+		futureTop=Number(nowTop) + 32;
+
+		player.style.top = futureTop+"px";
+	}
+	else if(key =='a')
+	{
+		player=document.getElementById("human");
+		nowTop=player.style.left.replace('px','');
+		futureTop=Number(nowTop) - 32;
+
+		player.style.left = futureTop+"px";
+	}
+	else if(key =='d')
+	{
+		player=document.getElementById("human");
+		nowTop=player.style.left.replace('px','');
+		futureTop=Number(nowTop) + 32;
+
+		player.style.left = futureTop+"px";
+	}
+});
+
+</script>
+<div id="screen" style="position:absolute;top:0px;left:0px;width:calc(32px * 11);height:calc(32px * 16);
+background-color:#f3d463">
+<div
+style="position:absolute;left:calc(32px * 1);top:calc(32px * 1);
+width:288px;height:352px;
+background-Image:url(SRC/building.png);
+background-repeat:no-repeat;
+background-size:contain;">
+</div>
+<div id="human"
+style="position:absolute;left:160px;top:448px;
+width:32px;height:32px;
+background-color:blue;
+"
+>
+</div>
+</BODY>
+</HTML>

@@ -82,8 +82,16 @@ function NG()
 	document.getElementById("selPanel").src= latelySuccessPath;
 }
 
+function OpenPage(_targ)
+{
+	if(_targ == "METAVERSE")
+	{
+		window.open("subPage/nsucomp.html");
+	}
+}
 //Execute to Main Function
 start=preloading("Introduce", 11);
+
 </script>
 
 <h2>Naster Universe Group</h2><br>
@@ -134,7 +142,7 @@ start=preloading("Introduce", 11);
 			<th>1.</th>
 			<td>Sample Game [The Robot Quiz]</td>
 		</tr>
-		<tr>
+		<tr onclick="OpenPage('METAVERSE')" style="cursor:pointer">
 			<th>2.</th>
 			<td>Metaverse [Naster Universe Company]</td>
 		</tr>
