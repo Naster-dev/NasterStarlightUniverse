@@ -5,60 +5,287 @@
 </HEAD>
 <BODY>
 <script>
-let count=0;
+let Mapid=0;
+let TouchEvent="";
+let MoveLock = false;
 
+// Check-Move Management=======================================
+function AllCheckMoveable(_x, _y)
+{
+	res = false;
+	res |= FieldStopCheck(_x, _y)
+	res |= FieldMoveCheck(_x, _y)
+
+	return res;
+}
+
+function FieldStopCheck(_x, _y)
+{
+	if(Mapid == 0)
+	{
+		x_min=Number(32);
+		x_max=Number(x_min + (32 * 9));
+		y_min=Number(32);
+		y_max=Number(y_min+ (32 * 10));
+
+		if(x_min <= _x && _x < x_max && y_min <= _y && _y < y_max) return true;
+	}
+	if(Mapid == 1)
+	{
+		x_min=Number(0);
+		x_max=Number(x_min + (32 * 18));
+		y_min=Number(0);
+		y_max=Number(y_min+ (32 * 3));
+
+		if(x_min <= _x && _x < x_max && y_min <= _y && _y < y_max) return true;
+	}
+	
+}
+
+function FieldMoveCheck(_x, _y)
+{
+	area=document.getElementById("screen");
+
+	x_min=Number(area.style.left.replace('px',''));
+	x_max=Number(area.style.left.replace('px','')) + Number(area.style.width.replace('px',''));
+	y_min=Number(area.style.top.replace('px',''));
+	y_max=Number(area.style.top.replace('px','')) + Number(area.style.height.replace('px',''));
+
+	if(x_min > _x || _x >= x_max || y_min > _y || _y >= y_max) return true;
+}
+//Map Management==========================================
+function ChangeMap(_selMapid, _x, _y)
+{
+	switch(_selMapid)
+	{
+		case 0:
+			SelectMap00(_x, _y);
+			break;
+		case 1:
+			SelectMap01(_x, _y);
+			break;
+	}
+}
+function SelectMap00(_x, _y)
+{
+	area = document.getElementById("screen");
+	area.style.position = "absolute";
+	area.style.top = "0px";
+	area.style.left = "0px";
+	area.style.width = "352px";
+	area.style.height = "512px";
+
+	area.style.backgroundImage = "url(SRC/MAP/building.png)";
+
+	player = document.getElementById("host");
+	player.style.left = _x + "px";
+	player.style.top = _y + "px";
+
+	obj = document.getElementById("objectdown");
+	obj.innerHTML="";
+
+	obj.innerHTML = '<div id="intolobby" style="position:absolute;left:160px;top:352px;width:32px;height:32px;background-Image:url(SRC/OBJ/arrow12.png)"></div>';
+}
+
+function SelectMap01(_x, _y)
+{
+	area = document.getElementById("screen");
+	area.style.position = "absolute";
+	area.style.top = "0px";
+	area.style.left = "0px";
+	area.style.width = "576px";
+	area.style.height = "352px";
+
+	area.style.backgroundImage = "url(SRC/MAP/lobby.png)";
+
+	player = document.getElementById("host");
+	player.style.left = _x + "px";
+	player.style.top = _y + "px";
+
+	obj = document.getElementById("objectdown");
+	obj.innerHTML="";
+
+	obj.innerHTML = '<div id="outtofield" style="position:absolute;left:256px;top:320px;width:32px;height:32px;background-Image:url(SRC/OBJ/arrow6.png)"></div>'+
+'<div id="viewstand" style="position:absolute;left:96px;top:96px;width:32px;height:32px;opacity:0.5;background-Image:url(SRC/OBJ/event.png)"></div>'+
+'<div style="position:absolute;left:96px;top:32px;width:32px;height:64px;background-Image:url(SRC/PIC/grandjeol.png)"></div>';
+
+}
+// Call Event base on Host's location ===============================
+function CurrentPosEventCheck(_x, _y)
+{
+	TouchEvent="";
+	if(Mapid == 0)
+	{
+		x_min=Number(160);
+		x_max=Number(x_min + 32);
+		y_min=Number(352);
+		y_max=Number(y_min+ 32);
+
+		if(x_min <= _x && _x < x_max && y_min <= _y && _y < y_max)
+		{
+			TouchEvent="intolobby";
+		}
+
+	}
+	if(Mapid == 1)
+	{
+		x_min=Number(96);
+		x_max=Number(x_min + 32);
+		y_min=Number(96);
+		y_max=Number(y_min+ 32);
+
+		if(x_min <= _x && _x < x_max && y_min <= _y && _y < y_max)
+		{
+			TouchEvent="viewstand";
+		}
+
+		x_min=Number(256);
+		x_max=Number(x_min + 32);
+		y_min=Number(320);
+		y_max=Number(y_min+ 32);
+
+		if(x_min <= _x && _x < x_max && y_min <= _y && _y < y_max)
+		{
+			TouchEvent="outtofield";
+		}
+	}
+
+}
+
+function TryExecuteEvent(_id)
+{
+	switch(_id)
+	{
+		case "intolobby":
+			Mapid = 1;
+			ChangeMap(Mapid, 256,320);
+			TouchEvent = "";
+			break;
+		case "outtofield":
+			Mapid = 0;
+			ChangeMap(Mapid, 160,352);
+			TouchEvent = "";
+			break;
+		case "viewstand":
+			if(MoveLock == true)
+			{
+				MoveLock = false;
+				Msg = document.getElementById("message");
+				Msg.children[0].style.visibility="hidden";
+
+			}
+			else
+			{
+				MoveLock = true;
+				Msg = document.getElementById("message");
+				Msg.children[0].style.visibility="";
+			}
+			break;
+	}
+
+}
+
+// Key-Event Listener =========================================
 window.addEventListener("keypress", (e) => {
 	const key = e.key;
 	if(key =='w')
 	{
-		player=document.getElementById("human");
+		player=document.getElementById("host");
 		nowTop=player.style.top.replace('px','');
+		nowLeft=player.style.left.replace('px','');
+
 		futureTop=Number(nowTop) - 32;
+		futureLeft = nowLeft;
+
+		if(MoveLock == true || AllCheckMoveable(futureLeft, futureTop)) return;
+		CurrentPosEventCheck(futureLeft, futureTop);
 
 		player.style.top = futureTop+"px";
 	}
 	else if(key =='s')
 	{
-		player=document.getElementById("human");
+		player=document.getElementById("host");
 		nowTop=player.style.top.replace('px','');
+		nowLeft=player.style.left.replace('px','');
+
 		futureTop=Number(nowTop) + 32;
+		futureLeft = nowLeft;
+
+		if(MoveLock == true || AllCheckMoveable(futureLeft, futureTop)) return;
+		CurrentPosEventCheck(futureLeft, futureTop);
 
 		player.style.top = futureTop+"px";
 	}
 	else if(key =='a')
 	{
-		player=document.getElementById("human");
-		nowTop=player.style.left.replace('px','');
-		futureTop=Number(nowTop) - 32;
+		player=document.getElementById("host");
+		nowTop=player.style.top.replace('px','');
+		nowLeft=player.style.left.replace('px','');
 
-		player.style.left = futureTop+"px";
+		futureTop=nowTop;
+		futureLeft=Number(nowLeft) - 32;
+
+		if(MoveLock == true || AllCheckMoveable(futureLeft, futureTop)) return;
+		CurrentPosEventCheck(futureLeft, futureTop);
+
+		player.style.left = futureLeft+"px";
 	}
 	else if(key =='d')
 	{
-		player=document.getElementById("human");
-		nowTop=player.style.left.replace('px','');
-		futureTop=Number(nowTop) + 32;
+		player=document.getElementById("host");
+		nowTop=player.style.top.replace('px','');
+		nowLeft=player.style.left.replace('px','');
 
-		player.style.left = futureTop+"px";
+		futureTop=nowTop;
+		futureLeft=Number(nowLeft) + 32;
+
+		if(MoveLock == true || AllCheckMoveable(futureLeft, futureTop)) return;
+		CurrentPosEventCheck(futureLeft, futureTop);
+
+		player.style.left = futureLeft+"px";
+	}
+
+	if(key == ' ')
+	{
+		//맵이동 테스트
+		/*
+		if(Mapid == 0) Mapid = 1;
+		else if(Mapid == 1) Mapid = 0;
+
+		ChangeMap(Mapid);
+		*/
+		//이벤트 찾기
+		TryExecuteEvent(TouchEvent);
 	}
 });
-
 </script>
-<div id="screen" style="position:absolute;top:0px;left:0px;width:calc(32px * 11);height:calc(32px * 16);
-background-color:#f3d463">
-<div
-style="position:absolute;left:calc(32px * 1);top:calc(32px * 1);
-width:288px;height:352px;
-background-Image:url(SRC/building.png);
+<div id="screen"
+style="position:absolute;
+top:0px;left:0px;
+width:352px;height:512px;
+background-Image:url(SRC/MAP/building.png);
 background-repeat:no-repeat;
 background-size:contain;">
+<div id="objectdown">
+<div id="intolobby" style="position:absolute;left:160px;top:352px;width:32px;height:32px;background-Image:url(SRC/OBJ/arrow12.png)"></div>
 </div>
-<div id="human"
+<div id="host"
 style="position:absolute;left:160px;top:448px;
 width:32px;height:32px;
 background-color:blue;
-"
->
+opacity:0.5;
+">
+</div>
+<div id="objectup">
+</div>
+<div id="message">
+<div id="mainMsg" style="visibility:hidden;position:absolute;left:calc(50% - 250px);top:calc(50% - 50px);
+width:500px;height:100px;
+background-color:cyan;opacity:0.9;
+">[주인공]<br>
+이 사람은 "그랜절보이"라고 하는군요<br>
+정말로 예의가 바른 청년입니다.<br>
+</div>
 </div>
 </BODY>
 </HTML>
