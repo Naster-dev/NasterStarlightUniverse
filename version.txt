@@ -1,0 +1,8 @@
+V1.0
+- Arcade item
+> Omok
+
+V1.1
+- Add to Database item
+> Korean Unicode, Japanese Charactor, Chinese Bingying
+> CNC Milling, CNC Lathe

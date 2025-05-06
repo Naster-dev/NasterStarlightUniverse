@@ -3,7 +3,7 @@
 <HEAD>
 <Title>Naster Starlight Universe</Title>
 <meta charset="utf-16"></meta>
-<script type="text/javascript" src="js/arcade.js"></script>
+<script type="text/javascript" src="js/arcade_omok.js"></script>
 
 </HEAD>
 <BODY>
@@ -37,16 +37,14 @@ function ChangeMenu(_idx)
 
 //for Arcade Script
 
-let turn=0;	//0:BLACK - 1:WHITE
-let endLock = false;
-Mapping = new Matrix(19,19);
 
 //for Simulator Script
 
 //for DataBase Script
 
 </script>
-<header style="position:absolute;top:0px;left:0px;width:100%;height:50px;background-color:green;font-size:20pt">Naster StarLight Universe</header>
+<header style="position:absolute;top:0px;left:0px;width:100%;height:50px;background-color:cyan;font-size:20pt">
+&nbsp;<img src="img/mainSym.png" style="vertical-align:middle">&nbsp;Naster Starlight Universe</img></header>
 <aside style="position:absolute;top:50px;bottom:0px;left:0px;width:150px;background-color:yellow">
 <img src="img/lblMenu.png">
 <img src="img/btnMeta.png" style="cursor:pointer" onclick="ChangeMenu(0)">
@@ -54,7 +52,7 @@ Mapping = new Matrix(19,19);
 <img src="img/btnSim.png" style="cursor:pointer" onclick="ChangeMenu(2)">
 <img src="img/btnDB.png" style="cursor:pointer" onclick="ChangeMenu(3)">
 </aside>
-<main style="position:absolute;top:50px;bottom:0px;left:150px;right:0px;background-color:cyan">
+<main style="position:absolute;top:50px;bottom:0px;left:150px;right:0px">
 <article id="Metaverse" style="position:absolute;visibility:hidden">
 Metaverse 준비중...
 </article>
@@ -69,7 +67,58 @@ Metaverse 준비중...
 Simulator 준비중...
 </article>
 <article id="Database" style="position:absolute;visibility:hidden">
-DataBase 준비중...
+<!---
+1. SW Application
+<table border=1>
+<tr>
+	<td width="150">Virtual PLC</td>
+	<td width="100">▶Preview</td>
+	<td width="100">▶Download</td>
+</tr>
+<tr>
+	<td>Hangen</td>
+	<td>▶Preview</td>
+	<td>▶Download</td>
+</tr>
+</table>
+<br>
+2. Hardware Information
+<table border=1>
+	<tr>
+		<td width="150">VPD-10</td>
+		<td width="100">▶View</td>
+	</tr>
+</table>
+<br>
+--->
+3. Language Information
+<table border=1>
+	<tr>
+		<td width="200">Korean Unicode Table</td>
+		<td width="100"  style="cursor:pointer;" onclick="window.open('component/Database/lang/Koreachar.html')" onmouseenter="this.style.backgroundColor='lime'" onmouseleave="this.style.backgroundColor=''">▶View</td>
+	</tr>
+	<tr>
+		<td width="200">Japanese Table</td>
+		<td width="100"  style="cursor:pointer;" onclick="window.open('component/Database/lang/Japanchar.html')" onmouseenter="this.style.backgroundColor='lime'" onmouseleave="this.style.backgroundColor=''">▶View</td>
+	</tr>
+	<tr>
+		<td width="200">Chinese Table</td>
+		<td width="100"  style="cursor:pointer;" onclick="window.open('component/Database/lang/Chinachar.html')" onmouseenter="this.style.backgroundColor='lime'" onmouseleave="this.style.backgroundColor=''">▶View</td>
+	</tr>
+</table>
+<br>
+4. Technical Information
+<table border=1>
+	<tr>
+		<td width="200">CNC Milling G-Code List</td>
+		<td width="100"  style="cursor:pointer;" onclick="window.open('component/Database/tech/cncmil.html')" onmouseenter="this.style.backgroundColor='lime'" onmouseleave="this.style.backgroundColor=''">▶View</td>
+	</tr>
+	<tr>
+		<td width="200">CNC Lathe G-Code List</td>
+		<td width="100"  style="cursor:pointer;" onclick="window.open('component/Database/tech/cnclth.html')" onmouseenter="this.style.backgroundColor='lime'" onmouseleave="this.style.backgroundColor=''">▶View</td>
+
+	</tr>
+</table>
 </article>
 </main>
 </BODY>
