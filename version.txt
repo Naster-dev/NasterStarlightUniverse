@@ -6,3 +6,7 @@ V1.1
 - Add to Database item
 > Korean Unicode, Japanese Charactor, Chinese Bingying
 > CNC Milling, CNC Lathe
+
+V1.2
+- Interface Update.
+> Omok - separate from inner page.

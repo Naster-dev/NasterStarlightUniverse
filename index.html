@@ -3,9 +3,8 @@
 <HEAD>
 <Title>Naster Starlight Universe</Title>
 <meta charset="utf-16"></meta>
-<script type="text/javascript" src="js/arcade_omok.js"></script>
-
 </HEAD>
+
 <BODY>
 <script>
 //Common
@@ -17,56 +16,73 @@ function ChangeMenu(_idx)
 	document.getElementById("Database").style.visibility="hidden";
 	switch(_idx)
 	{
-		case 0:
+		case 1:
 			document.getElementById("Metaverse").style.visibility="";
 			break;
-		case 1:
+		case 2:
 			document.getElementById("Arcade").style.visibility="";
 			break;
-		case 2:
+		case 3:
 			document.getElementById("Simulator").style.visibility="";
 			break;
-		case 3:
+		case 4:
 			document.getElementById("Database").style.visibility="";
 			break;
-		
+		default:
+			break;	
 	}
 }
 
-//for Metaverse Script
-
-//for Arcade Script
-
-
-//for Simulator Script
-
-//for DataBase Script
-
 </script>
+
 <header style="position:absolute;top:0px;left:0px;width:100%;height:50px;background-color:cyan;font-size:20pt">
 &nbsp;<img src="img/mainSym.png" style="vertical-align:middle">&nbsp;Naster Starlight Universe</img></header>
 <aside style="position:absolute;top:50px;bottom:0px;left:0px;width:150px;background-color:yellow">
-<img src="img/lblMenu.png">
-<img src="img/btnMeta.png" style="cursor:pointer" onclick="ChangeMenu(0)">
-<img src="img/btnArcade.png" style="cursor:pointer" onclick="ChangeMenu(1)">
-<img src="img/btnSim.png" style="cursor:pointer" onclick="ChangeMenu(2)">
-<img src="img/btnDB.png" style="cursor:pointer" onclick="ChangeMenu(3)">
+<img src="img/lblMenu.png" style="cursor:pointer" onclick="ChangeMenu(0)">
+<img src="img/btnMeta.png" style="cursor:pointer" onclick="ChangeMenu(1)">
+<img src="img/btnArcade.png" style="cursor:pointer" onclick="ChangeMenu(2)">
+<img src="img/btnSim.png" style="cursor:pointer" onclick="ChangeMenu(3)">
+<img src="img/btnDB.png" style="cursor:pointer" onclick="ChangeMenu(4)">
 </aside>
 <main style="position:absolute;top:50px;bottom:0px;left:150px;right:0px">
 <article id="Metaverse" style="position:absolute;visibility:hidden">
 Metaverse 준비중...
 </article>
-<article id="Arcade" style="visibility:">
-<div style="position:absolute;top:0px;right:5px">Arcade : Omok_v1.0</div>
-<div id="Arcade_omok" style="visibility:">
-	<img src="component/Arcade/Field/bgOmok.png" style="position:absolute" onmouseup="PutonToken()">
-	</img>
-</div>
+<article id="Arcade" style="position:absolute;visibility:hidden">
+★ Arcade ★<br>
+1. Board Games
+<table border=1>
+	<tr>
+		<td width="150">Omok</td>
+		<td width="100" style="cursor:pointer;" onclick="window.open('component/Arcade/omok/omok.html')" onmouseenter="this.style.backgroundColor='lime'" onmouseleave="this.style.backgroundColor=''">▶Play</td>
+		<td width="100">▶Inform</td>
+	</tr>
+	<tr>
+		<td>Chess</td>
+		<td>▶Play</td>
+		<td>▶Inform</td>
+	</tr>
+	<tr>
+		<td>Reversi</td>
+		<td>▶Play</td>
+		<td>▶Inform</td>
+	</tr>
+</table>
+<br>
+2. Interactive Games
+<table border=1>
+	<tr>
+		<td width="150">Visual Novel</td>
+		<td width="100">▶Play</td>
+		<td width="100">▶Inform</td>
+	</tr>
+</table>
 </article>
 <article id="Simulator" style="position:absolute;visibility:hidden">
 Simulator 준비중...
 </article>
 <article id="Database" style="position:absolute;visibility:hidden">
+■ DataBase □<br>
 <!---
 1. SW Application
 <table border=1>
@@ -95,15 +111,15 @@ Simulator 준비중...
 <table border=1>
 	<tr>
 		<td width="200">Korean Unicode Table</td>
-		<td width="100"  style="cursor:pointer;" onclick="window.open('component/Database/lang/Koreachar.html')" onmouseenter="this.style.backgroundColor='lime'" onmouseleave="this.style.backgroundColor=''">▶View</td>
+		<td width="100" style="cursor:pointer;" onclick="window.open('component/Database/lang/Koreachar.html')" onmouseenter="this.style.backgroundColor='lime'" onmouseleave="this.style.backgroundColor=''">▶View</td>
 	</tr>
 	<tr>
 		<td width="200">Japanese Table</td>
-		<td width="100"  style="cursor:pointer;" onclick="window.open('component/Database/lang/Japanchar.html')" onmouseenter="this.style.backgroundColor='lime'" onmouseleave="this.style.backgroundColor=''">▶View</td>
+		<td width="100" style="cursor:pointer;" onclick="window.open('component/Database/lang/Japanchar.html')" onmouseenter="this.style.backgroundColor='lime'" onmouseleave="this.style.backgroundColor=''">▶View</td>
 	</tr>
 	<tr>
 		<td width="200">Chinese Table</td>
-		<td width="100"  style="cursor:pointer;" onclick="window.open('component/Database/lang/Chinachar.html')" onmouseenter="this.style.backgroundColor='lime'" onmouseleave="this.style.backgroundColor=''">▶View</td>
+		<td width="100" style="cursor:pointer;" onclick="window.open('component/Database/lang/Chinachar.html')" onmouseenter="this.style.backgroundColor='lime'" onmouseleave="this.style.backgroundColor=''">▶View</td>
 	</tr>
 </table>
 <br>
@@ -121,5 +137,8 @@ Simulator 준비중...
 </table>
 </article>
 </main>
+<footer style="position:absolute;bottom:0px;left:0px;width:100%;height:50px;background-color:orange;font-size:12pt">
+	@Naster Company's Naver Blog : <a href="">Visit to Page</a>
+</footer>
 </BODY>
 </HTML>
