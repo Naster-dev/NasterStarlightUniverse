@@ -1,0 +1,30 @@
+.msg {
+	position:absolute;
+	width:960px;
+	height:200px;
+	top:520px;
+	left:0px;
+	background-color:pink;
+	opacity:1.0;
+	font-size:25px;
+}
+
+#SelectBox {
+	position:absolute;
+	top:20px;
+	left:20px;
+	width:920px;
+	height:200px;
+}
+
+.sel {
+	position:relatively;
+	height:50px;
+	background-color:grey;
+	opacity:0.8;
+	font-size:25px;
+}
+.sel:hover {
+	cursor:pointer;
+	background-color:blue;
+}

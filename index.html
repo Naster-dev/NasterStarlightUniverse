@@ -8,14 +8,32 @@
 <BODY>
 <script>
 //Common
+let nshow = 0;
+function Initial()
+{
+	fsturl = "component/Main/intro_";
+	finurl = ".png"
+
+	for(i = 0; i < 5; i++)
+	{
+		imge = new Image();
+		imge.src = fsturl + i + finurl;
+	}
+}
+Initial();
+
 function ChangeMenu(_idx)
 {
+	document.getElementById("MainScreen").style.visibility="hidden";
 	document.getElementById("Metaverse").style.visibility="hidden";
 	document.getElementById("Arcade").style.visibility="hidden";
 	document.getElementById("Simulator").style.visibility="hidden";
 	document.getElementById("Database").style.visibility="hidden";
 	switch(_idx)
 	{
+		case 0:
+			document.getElementById("MainScreen").style.visibility="";
+			break;
 		case 1:
 			document.getElementById("Metaverse").style.visibility="";
 			break;
@@ -33,6 +51,23 @@ function ChangeMenu(_idx)
 	}
 }
 
+function ClickShow(_rst=false)
+{
+	obj = document.getElementById("intro");
+	fsturl = "component/Main/intro_";
+	finurl = ".png"
+	
+	if(_rst)
+	{
+		nshow=0;
+	}
+	else
+	{
+		if(nshow < 4) nshow++;
+	}
+	obj.src = fsturl + nshow + finurl;
+}
+
 </script>
 
 <header style="position:absolute;top:0px;left:0px;width:100%;height:50px;background-color:cyan;font-size:20pt">
@@ -45,8 +80,23 @@ function ChangeMenu(_idx)
 <img src="img/btnDB.png" style="cursor:pointer" onclick="ChangeMenu(4)">
 </aside>
 <main style="position:absolute;top:50px;bottom:0px;left:150px;right:0px">
+<article id="MainScreen" style="position:absolute;left:10px;visibility:">
+<b>★!Welcome to Naster Starlight Universe!☆</b>
+<p>
+Hello visitor, Thank you very much!<br>
+I'm Naster.U, the page's administrator.<br>
+My Homepage will purpose you interesting.<br>
+Please, Watch a presentation, you will be funny!!<br>
+</p>
+<div>
+[Presentation]<br>
+<input type="button" value="Next Show" style="cursor:pointer" onclick="ClickShow()"></input>
+<input type="button" value="To First Page" style="cursor:pointer" onclick="ClickShow(true)"></input><br>
+<img id="intro" src="component/Main/intro_0.png" width="520px"></img>
+</div>
+</article>
 <article id="Metaverse" style="position:absolute;visibility:hidden">
-Metaverse 준비중...
+(Metaverse) To be released...
 </article>
 <article id="Arcade" style="position:absolute;visibility:hidden">
 ★ Arcade ★<br>
@@ -55,17 +105,17 @@ Metaverse 준비중...
 	<tr>
 		<td width="150">Omok</td>
 		<td width="100" style="cursor:pointer;" onclick="window.open('component/Arcade/omok/omok.html')" onmouseenter="this.style.backgroundColor='lime'" onmouseleave="this.style.backgroundColor=''">▶Play</td>
-		<td width="100">▶Inform</td>
+		<td width="100" style="cursor:pointer;" onclick="window.open('component/Arcade/omok/omok_info.html')" onmouseenter="this.style.backgroundColor='lime'" onmouseleave="this.style.backgroundColor=''">▶Info</td>
 	</tr>
 	<tr>
 		<td>Chess</td>
 		<td>▶Play</td>
-		<td>▶Inform</td>
+		<td>▶Info</td>
 	</tr>
 	<tr>
 		<td>Reversi</td>
 		<td>▶Play</td>
-		<td>▶Inform</td>
+		<td>▶Info</td>
 	</tr>
 </table>
 <br>
@@ -73,13 +123,13 @@ Metaverse 준비중...
 <table border=1>
 	<tr>
 		<td width="150">Visual Novel</td>
-		<td width="100">▶Play</td>
-		<td width="100">▶Inform</td>
+		<td width="100" style="cursor:pointer;" onclick="window.open('component/Arcade/visualnovel/visualnovel.html')" onmouseenter="this.style.backgroundColor='lime'" onmouseleave="this.style.backgroundColor=''">▶Play</td>
+		<td width="100">▶Info</td>
 	</tr>
 </table>
 </article>
 <article id="Simulator" style="position:absolute;visibility:hidden">
-Simulator 준비중...
+(Simulator) To be released...
 </article>
 <article id="Database" style="position:absolute;visibility:hidden">
 ■ DataBase □<br>
@@ -138,7 +188,7 @@ Simulator 준비중...
 </article>
 </main>
 <footer style="position:absolute;bottom:0px;left:0px;width:100%;height:50px;background-color:orange;font-size:12pt">
-	@Naster Company's Naver Blog : <a href="">Visit to Page</a>
+	@Naster Company's Naver Blog : <a href="" onclick="window.open('https://blog.naver.com/naster_u')">Visit to Page</a>
 </footer>
 </BODY>
 </HTML>

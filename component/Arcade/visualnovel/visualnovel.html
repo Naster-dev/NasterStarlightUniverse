@@ -1,0 +1,199 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+<Title>VisualNovel_V1.0</Title>
+<link rel="stylesheet" type="text/css" href="include/stylesheet.css">
+</head>
+<body>
+<script type="text/javascript" src="include/mainlib.js"></script>
+<script>
+//초기화
+function SystemReset() {
+	//Preload 관련
+	const TempImg = [
+		"title/start.png",
+		"title/end.png",
+		"bg/spotlight.png",
+		"obj/maki.png"];
+
+	for(i = 0; i < TempImg.length; i++)
+	{
+		tmp = new Image();
+		tmp.src=TempImg[i];
+	}
+};
+
+//화면전환:seq
+let nseq = 0;	//now
+let pseq = -1;	//past
+let xseq = 0;	//next
+let fseq=2;		//final
+//화면 내 전환:step
+let nstep = 0;
+let pstep = -1;
+let xstep = 0;
+let fstep = 0;
+
+let prolock = false;	//선택지 등 스텝넘김 방지
+
+//클릭 이벤트
+function processStory()
+{
+	if(prolock == true) return;
+
+	if(fseq <= nseq) return;
+
+	if(xseq != 0)
+	{
+		nseq = xseq;
+		xseq = 0;
+		return;
+	}
+
+	if(fstep == 0)
+	{
+		nseq++;
+	}
+	else
+	{
+		if(fstep <= nstep)
+		{
+			nstep = 0;
+			nseq++;
+		}
+		else
+		{
+			if(xstep != 0)
+			{
+				nstep = xstep;
+				xstep = 0;
+			}
+			else
+				nstep++;
+		}
+	}
+};
+
+//스텝상태 화면체크
+let Scan = setInterval(function () {
+	if(nseq != pseq)
+	{
+		document.getElementById("start").style.visibility="hidden";
+		document.getElementById("stage1").style.visibility="hidden";
+		document.getElementById("end").style.visibility="hidden";		
+
+		switch(nseq)
+		{
+			case 0:
+				document.getElementById("start").style.visibility="";
+				fstep = 0;
+				break;
+			case 1:
+				document.getElementById("stage1").style.visibility="";
+				fstep = 9;
+				break;
+			case 2:
+				document.getElementById("end").style.visibility="";
+				fstep = 0;
+				break;
+		}
+		pseq = nseq;
+	}
+
+	if(fstep != 0)
+	{
+		if(nseq == 1)
+		{
+			if(nstep != pstep)
+			{
+				switch(nstep)
+				{
+					case 0:
+						MsgDisplay(false);
+						break;
+					case 1:
+						MsgDisplay(true);
+						MsgOutput("[마키]","프로듀서 안녕?!");
+						break;
+					case 2:
+						MsgDisplay(true);
+						MsgOutput("[마키]","이번 연습 잘 부탁해!!", "난 프로듀서를 믿어~!");
+						break;
+					case 3:
+						MsgDisplay(true);
+						MsgOutput("[마키]","그렇지만, 바로 시작하는 것보다는", "좀만 놀고 시작하고 싶어", "연습하기 전에 놀자~");
+						break;
+					case 4:
+						SelectBoxBrunch(5,6,7,8);
+						SelectBoxCall("놀지말고 연습한다","같이 놀러간다","같이 식사하러 간다","같이 잠을 자러 간다");
+						break;
+					case 5:
+						MsgDisplay(true);
+						MsgOutput("[마키]","에~? 나 힘들단 말이야~!", "같이 놀면 안돼?");
+						ProcessLock(false);
+						SetNextStep(9);
+						break;
+					case 6:
+						MsgDisplay(true);
+						MsgOutput("[마키]","헤헿 프로듀서~ 신난다!!","뭐하고 놀고싶어? 놀이동산갈래?", "아니면 귀신의 집?");
+						ProcessLock(false);
+						SetNextStep(9);
+						break;
+					case 7:
+						MsgDisplay(true);
+						MsgOutput("[마키]","좋아~ 밥먹으로 가자!!","추천해줄 메뉴 있어?", "난 이거먹고 싶은데~ ㅎㅎ");
+						ProcessLock(false);
+						SetNextStep(9);
+						break;
+					case 8:
+						MsgDisplay(true);
+						MsgOutput("[마키]","변태 죽어..!");
+						ProcessLock(false);
+						//SetNextStep(9);
+						SetNextSeq(2);
+						break;
+					case 9:
+						MsgDisplay(true);
+						MsgOutput("[관리자]","테스트 끝");
+						break;
+				}
+				pstep = nstep;
+			}
+		}
+	}
+	else
+	{
+		if(nstep != 0 || pstep != -1)
+		{
+			nstep = 0;
+			pstep = -1;
+		}
+	}
+}, 100);
+
+//초기화 실행
+SystemReset();
+
+</script>
+
+<main style="position:absolute;top:0px;left:0px;width:960px;height:720px;" onclick="processStory()">
+	<header id="start" style="position:absolute;visibility:">
+		<img src="title/start.png"></img>
+	</header>
+	<section id="stage1" style="position:absolute;visibility:hidden">
+		<img src="bg/spotlight.png" style="position:absolute"></img>
+		<img src="obj/maki.png" style="position:absolute;left:400px;top:220px"></img>
+		<div id="txtbox" class="msg">hi maki</div>
+		<div id="SelectBox" style="visibility:hidden">
+			<div id="s1" class="sel" onclick="">선택지1</div>
+			<div id="s2" class="sel" onclick="">선택지2</div>
+			<div id="s3" class="sel" onclick="">선택지3</div>
+			<div id="s4" class="sel" onclick="">선택지4</div>
+		</div>
+	</section>
+	<footer id="end" style="position:absolute;visibility:hidden">
+		<img src="title/end.png"></img>
+	</footer>
+</main>
+</body>
+</html>

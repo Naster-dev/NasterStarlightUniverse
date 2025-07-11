@@ -10,3 +10,7 @@ V1.1
 V1.2
 - Interface Update.
 > Omok - separate from inner page.
+
+V1.3
+- Add Footer for another site as Naver...
+- Add Visual Novel, Testing...
