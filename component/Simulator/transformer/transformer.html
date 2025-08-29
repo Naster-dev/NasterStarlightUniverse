@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html lang="ko">
+<head>
+<Title>Transform Simulator V1.0</Title>
+</head>
+<body>
+<script>
+function SystemReset(){
+	const TempImg = [
+		"main.PNG"];
+
+	for(i = 0; i < TempImg.length; i++)
+	{
+		tmp = new Image();
+		tmp.src=TempImg[i];
+	}
+};
+
+let flagsaved = false;
+let rate_coil = 0;
+let addmutual = false;
+let reg_power = 0;
+let reg_volt = 0;
+let res_1st = 0;
+let react_1st = 0;
+let res_2nd = 0;
+let react_2nd = 0;
+
+function ToSave()
+{
+	flagsaved = false;
+
+	tmp = document.getElementsByName("setting");
+
+	if(Number(tmp[1].value) != 0)
+	{
+		rate_coil = Number(tmp[0].value)/Number(tmp[1].value);
+	}
+	else
+	{
+		rate_coil = 0;
+	}
+	addmutual = tmp[2].checked;
+	reg_power = tmp[3].value;
+	reg_volt = tmp[4].value;
+	res_1st = tmp[5].value;
+	react_1st = tmp[6].value;
+	res_2nd = tmp[7].value;
+	react_2nd = tmp[8].value;
+
+	flagsaved = true;
+}
+
+function ToCalculate()
+{
+	if(flagsaved)
+	{
+		tmp = document.getElementsByName("result");
+		//1차 정격전류
+		tmp[0].innerHTML = reg_power / reg_volt;
+		//역률
+		tmp[1].innerHTML = Math.cos(Math.atan(react_1st / res_1st));
+		//유효전력
+		tmp[2].innerHTML = reg_power * Number(tmp[1].innerHTML);
+		//%저항
+		tmp[3].innerHTML = (Number(res_1st) + (res_2nd * Math.pow(rate_coil, 2))) * Number(tmp[0].innerHTML) * 100/ reg_volt;
+		//%리액턴스
+		tmp[4].innerHTML = (Number(react_1st) + (react_2nd * Math.pow(rate_coil, 2))) * Number(tmp[0].innerHTML) * 100/ reg_volt;
+		//%임피던스
+		tmp[5].innerHTML = Math.sqrt(Math.pow(tmp[3].innerHTML, 2) + Math.pow(tmp[4].innerHTML, 2));
+		//단락전류
+		tmp[6].innerHTML = 100 * tmp[0].innerHTML / tmp[5].innerHTML;
+		//정격전류_2차
+		tmp[7].innerHTML = tmp[0].innerHTML * rate_coil;
+		//정격전압_2차
+		tmp[8].innerHTML = reg_volt / rate_coil;
+		//전압변동률
+		tmp[9].innerHTML = (tmp[3].innerHTML * tmp[1].innerHTML) + (tmp[4].innerHTML * Math.sqrt(1 - Math.pow(tmp[1].innerHTML,2))) ;
+		//무부하전압
+		tmp[10].innerHTML = tmp[8].innerHTML * (1 + Number(tmp[9].innerHTML / 100) );
+
+	}
+	else
+	{
+		alert("데이터 입력요망");
+	}
+}
+
+SystemReset();
+</script>
+<h4>Transformer Simulation V1.0</h4>
+<img src="main.PNG" width="220px"></img>
+<table>
+<tbody>
+	<tr>
+		<td>
+			<div id="set">
+				○권선비= <input type="text" name="setting" style="width:80px"></input> : <input type="text" name="setting" style="width:80px"></input><br>
+				○가극성<input type="checkbox" name="setting"></input><br>
+				○정격용량= <input type="text" name="setting" style="width:80px"></input><br>
+				○정격전압_1차= <input type="text" name="setting" style="width:80px"></input><br>
+				○1차측 저항 =  <input type="text" name="setting" style="width:80px"></input><br>
+				○1차측 리액턴스 = <input type="text" name="setting" style="width:80px"></input><br>
+				○2차측 저항 =  <input type="text" name="setting" style="width:80px"></input><br>
+				○2차측 리액턴스 = <input type="text" name="setting" style="width:80px"></input><br>
+				<input type="button" value="저장" onclick="ToSave()"></input>
+			</div>
+		</td>
+		<td>
+			<div id="result">
+				<input type="button" value="계산" onclick="ToCalculate()"></input><br>
+				●정격전류_1차=<span name="result"></span><br>
+				●역률=<span name="result"></span><br>
+				●유효전력=<span name="result"></span><br>
+				●%저항=<span name="result"></span><br>
+				●%리액턴스=<span name="result"></span><br>
+				●%임피던스=<span name="result"></span><br>
+				●단락전류=<span name="result"></span><br>
+				●정격전류_2차=<span name="result"></span><br>
+				●정격전압_2차=<span name="result"></span><br>
+				●전압변동률=<span name="result"></span><br>
+				●무부하전압=<span name="result"></span><br>
+			</div>
+
+		</td>
+	</tr>
+</tbody>
+</table>
+</body>
+</html>
